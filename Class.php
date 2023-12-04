@@ -51,18 +51,16 @@ class dbHandler {
             $pdo = self::connect();
             // エラーモードを例外に設定
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
             // データを挿入するSQL文の作成
             $columns = implode(', ', array_keys($datas));
             $values = ':' . implode(', :', array_keys($datas));
             $sql = "INSERT INTO $table_name ($columns) VALUES ($values)";
-    
             // プリペアドステートメントの作成
             $stmt = $pdo->prepare($sql);
-    
             // 配列から値をバインド
             foreach ($datas as $key => $value) {
-                $stmt->bindParam(":$key", $datas[$key]);
+                // $stmt->bindParam(":$key", $datas[$key]);
+                $stmt->bindParam(":$key", $value);
             }
     
             // SQL実行
@@ -124,5 +122,21 @@ class Validate{
             header("Location:error.php");
             exit();
         }
+    }
+}
+
+class Util{
+    function generateSecureRandomNumber($length) {
+        //$length...出力される桁数
+        // バイト数を計算
+        $byteLength = ceil($length * 0.75);
+        // バイナリデータを生成
+        $randomBytes = random_bytes($byteLength);
+        // ランダムな数字に変換
+        $randomNumber = hexdec(bin2hex($randomBytes));
+        // 桁数を調整
+        $randomNumber %= pow(10, $length);
+    
+        return str_pad($randomNumber, $length, '0', STR_PAD_LEFT);
     }
 }
