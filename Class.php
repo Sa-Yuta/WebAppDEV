@@ -1,6 +1,6 @@
 <?php
 class dbHandler {
-    const DB_NAME = "exp_test";
+    const DB_NAME = "whisper_db";
     const HOST = "localhost";
     const UTF = "utf8";
     const USER = "root";
@@ -59,16 +59,16 @@ class dbHandler {
             $stmt = $pdo->prepare($sql);
             // 配列から値をバインド
             foreach ($datas as $key => $value) {
-                // $stmt->bindParam(":$key", $datas[$key]);
-                $stmt->bindParam(":$key", $value);
+                $stmt->bindParam(":$key", $datas[$key]);
             }
     
             // SQL実行
             $stmt->execute();
     
-            echo "データが正常に挿入されました。";
+            return true;
         } catch (PDOException $e) {
-            echo "エラー: " . $e->getMessage();
+            $_SESSION['ERROR']['DB'] =  "エラー: " . $e->getMessage();
+            header("Location:error.php");
         }
 
     }

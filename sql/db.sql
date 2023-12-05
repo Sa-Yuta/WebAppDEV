@@ -6,7 +6,7 @@ CREATE TABLE User (
     user_id     VARCHAR(20)     PRIMARY KEY,
     user_name   VARCHAR(50)     NOT NULL,
     email       VARCHAR(255)    NOT NULL,
-    pass        VARCHAR(16)     NOT NULL,
+    pass        CHAR(60)     NOT NULL,
     birthday    DATE            NOT NULL,
     registday   DATE            NOT NULL
 );

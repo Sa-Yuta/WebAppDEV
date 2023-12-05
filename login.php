@@ -1,4 +1,9 @@
-<?php @session_start(); ?>
+<?php
+@session_start();
+require 'Class.php';
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,15 +14,11 @@
 </head>
 <body>
     <form method="post">
-        名前
+        ユーザーID または メールアドレス<br>
         <input type="text" name="name"><br>
-        パスワード
-        <input type="password" name="password"><br>
+        パスワード<br>
+        <input type="password" name="pass"><br>
         <input type="submit" value="ログイン">
     </form>
-
-
-    <?php
-    ?>
 </body>
 </html>

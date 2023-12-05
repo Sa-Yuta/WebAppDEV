@@ -8,7 +8,7 @@
 <body>
     <h3>今すぐ参加しましょう！</h3>
     <br>
-    <a href="regist.php">アカウントを作成</a>
+    <a href="register/regist.php">アカウントを作成</a>
     <br>
     <div>アカウントをお持ちの場合</div>
     <br>

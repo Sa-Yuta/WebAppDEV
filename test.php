@@ -17,4 +17,11 @@ foreach($params as $key => $value){
     echo "$key : $value<br>";
 }
 
+$password = 'Asdf12345';
+$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+echo $password . '<br>';
+echo $hashed_password . '<br>';
+
+
 ?>
