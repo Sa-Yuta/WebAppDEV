@@ -12,6 +12,6 @@
     <br>
     <div>アカウントをお持ちの場合</div>
     <br>
-    <a href="login.php">ログイン</a>
+    <a href="login/login.php">ログイン</a>
 </body>
 </html>

@@ -1,9 +1,9 @@
 <?php
 @session_start();
 
-if (isset($_SESSION["USER"])) {
-    require "timeline.php";
+if (isset($_SESSION['LOGIN'])) {
+    require 'timeline.php';
 }else{
-    require "welcome.php";
+    require 'welcome.php';
 }
 ?>

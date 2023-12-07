@@ -27,14 +27,12 @@ class dbHandler {
 
         try {
             $stmt = $pdo->prepare($sql);
-
             // パラメータが存在する場合、バインドを行う
             if (!empty($params)) {
                 $stmt->execute($params);
             } else {
                 $stmt->execute();
             }
-
             // ここで結果を取得したり処理したりする
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -117,10 +115,44 @@ class Validate{
         return true;
     }
 
+    public static function isEmail($email) {
+        // メールアドレスの正規表現
+        $emailPattern = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
+    
+        // 正規表現にマッチするかどうかを確認
+        return preg_match($emailPattern, $email) === 1;
+    }
+
     public static function checkSession($session_name){
         if (!isset($_SESSION[$session_name])) {
             header("Location:error.php");
             exit();
+        }
+    }
+
+    public static function equalValues($value1,$value2){
+        if($value1 == $value2){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+}
+
+class Login{
+    public static function login(string $user_id,string $pass){
+        $sql = 'SELECT pass FROM User WHERE user_id = ?;';
+        $results = dbHandler::query($sql,$user_id);
+        foreach($results as $key => $value){
+            $check_pass = $value['pass'];
+        }
+
+        $check = Validate::equalValues($check_pass,$pass);
+        if($check){
+            return true;
+        }else{
+            return false;
         }
     }
 }
@@ -139,4 +171,5 @@ class Util{
     
         return str_pad($randomNumber, $length, '0', STR_PAD_LEFT);
     }
+
 }
