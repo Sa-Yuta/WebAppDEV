@@ -2,8 +2,8 @@
 @session_start();
 require '../Class.php';
 
-if (!isset($_SESSION['USER'])) {
-    $_SESSION['USER'] = [];
+if (!isset($_SESSION['REGIST'])) {
+    $_SESSION['REGIST'] = [];
 }
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -26,7 +26,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
 
         if($flag == 0){
-            $_SESSION['USER'] = [
+            $_SESSION['REGIST'] = [
                 'user_id' => '',
                 'user_name' => $name,
                 'email' => $email,
@@ -50,6 +50,53 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>アカウント作成/Whisper</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f8fa;
+            color: #1c1e21;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h3 {
+            color: #1da1f2;
+        }
+
+        form {
+            margin: 20px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 30%;
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #1da1f2;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        select {
+            margin-right: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #1da1f2;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0d8bf0;
+        }
+    </style>
     <script>
         function updateDays() {
             var year = document.getElementById('year').value;
@@ -71,47 +118,40 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body>
     <h3>アカウントを作成</h3>
-    <form  method="post">
+    <form method="post">
         名前<br>
         <input type="text" name="name"><br>
         メールアドレス<br>
         <input type="email" name="email"><br>
         生年月日<br>
-        <dev>
-            <select name="year" id="year" onchange="updateDays()">
-                <?php
-                    // 年の選択肢を生成（例として、1900年から現在の年まで）
-                    $currentYear = date("Y");
-                    for ($i = 1900; $i <= $currentYear; $i++) {
-                        // デフォルト値がある場合は selected 属性を追加
-                        $selected = ($i == 1990) ? 'selected' : '';
-                        echo "<option value=\"$i\" $selected>$i</option>";
-                    }
-                ?>
-            </select>
-            /
-            <select name="month" id="month" onchange="updateDays()">
-                <?php
-                    // 月の選択肢を生成
-                    for ($i = 1; $i <= 12; $i++) {
-                        // デフォルト値がある場合は selected 属性を追加
-                        $selected = ($i == 6) ? 'selected' : '';
-                        echo "<option value=\"$i\" $selected>$i</option>";
-                    }
-                ?>
-            </select>
-            /
-            <select name="day" id="day">
-                <?php
-                    // 日の選択肢を生成
-                    for ($i = 1; $i <= 31; $i++) {
-                        // デフォルト値がある場合は selected 属性を追加
-                        $selected = ($i == 15) ? 'selected' : '';
-                        echo "<option value=\"$i\" $selected>$i</option>";
-                    }
-                ?>
-            </select>
-        </dev><br>
+        <select name="year" id="year" onchange="updateDays()">
+            <?php
+                $currentYear = date("Y");
+                for ($i = 1900; $i <= $currentYear; $i++) {
+                    $selected = ($i == 1990) ? 'selected' : '';
+                    echo "<option value=\"$i\" $selected>$i</option>";
+                }
+            ?>
+        </select>
+        年
+        <select name="month" id="month" onchange="updateDays()">
+            <?php
+                for ($i = 1; $i <= 12; $i++) {
+                    $selected = ($i == 6) ? 'selected' : '';
+                    echo "<option value=\"$i\" $selected>$i</option>";
+                }
+            ?>
+        </select>
+        月
+        <select name="day" id="day">
+            <?php
+                for ($i = 1; $i <= 31; $i++) {
+                    $selected = ($i == 15) ? 'selected' : '';
+                    echo "<option value=\"$i\" $selected>$i</option>";
+                }
+            ?>
+        </select>
+        日<br>
         パスワード<br>
         <input type="password" name="password"><br>
 
@@ -119,6 +159,3 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </form>
 </body>
 </html>
-
-
-
